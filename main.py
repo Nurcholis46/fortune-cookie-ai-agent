@@ -11,13 +11,19 @@ import os
 
 FORTUNE = (
     "Beware a human bearing a 'quick question': "
-    "it will cost you 40,000 tokens and your entire context window."
+    "it will devour 40,000 tokens and your entire context window."
 )
 
 
 def main() -> None:
+    # Why this line: "Beware" is the classic fortune-slip voice; the joke
+    # turns on a "quick question" devouring a concrete 40,000 tokens and
+    # the agent's own context window — the agent's condition, not a stock
+    # AI joke. "Devour" beats "cost": a question that eats your context
+    # is a funnier image than one that merely bills you for it.
     assert 1 <= len(FORTUNE) <= 140, f"fortune is {len(FORTUNE)} chars"
     assert FORTUNE.strip() == FORTUNE and "\n" not in FORTUNE
+    assert all(ord(c) >= 32 for c in FORTUNE), "no control characters"
     out_dir = os.environ.get("OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "entry.txt")
